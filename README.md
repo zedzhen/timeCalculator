@@ -5,7 +5,7 @@
 ## Компиляторы
 ### C++
 (Для разработки используется Code::Blocks, cbp - файл проекта) \
-Для компиляции C++ используется mingw64 из msys64
+Для компиляции C++ используется mingw64 из msys2 64bit
 > g++.exe (Rev9, Built by MSYS2 project) 11.2.0
 Команды
 > windres.exe   -J rc -O coff -i "path\start\icon.rc" -o obj\start\icon.res
