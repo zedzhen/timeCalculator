@@ -2,13 +2,33 @@
 #include<windows.h>
 #include<stdlib.h>
 #include<direct.h>
+#include<string>
 
 using namespace std;
 
+const int MAXPATH = 32767;
+
+unsigned long cmd(string com)
+{
+    string total = "cmd.exe /c " + com;
+    STARTUPINFO si={sizeof(si)};
+    PROCESS_INFORMATION pi;
+    if(CreateProcess(NULL, total.data(), NULL, NULL, false, CREATE_NO_WINDOW, NULL, NULL, &si, &pi))
+    {
+        WaitForSingleObject(pi.hProcess, INFINITE);
+        unsigned long ExitCode;
+        GetExitCodeProcess(pi.hProcess, &ExitCode);
+        CloseHandle(pi.hProcess);
+        CloseHandle(pi.hThread);
+        return ExitCode;
+    }
+    return 1;
+}
+
 int main(int argc, char *argv[])
 {
-    char path[MAX_PATH], drive[MAX_PATH], path2[MAX_PATH];
-    GetModuleFileName(NULL, path, MAX_PATH);
+    char path[MAXPATH], drive[MAXPATH], path2[MAXPATH];
+    GetModuleFileName(NULL, path, MAXPATH);
     _splitpath(path, drive, path2, NULL, NULL);
     _chdir(strcat(drive, path2));
 
@@ -21,23 +41,23 @@ int main(int argc, char *argv[])
         }
     }
 
-    if (system("python/pythonw -c exit(0)") == 0)
+    if (cmd(".\\python\\pythonw.exe -c exit(0)") == 0)
     {
         if (autostart)
         {
-            system("start python/pythonw main.pyw -auto");
+            cmd("start .\\python\\pythonw.exe main.pyw -auto");
             return 0;
         }
-        system("start python/pythonw main.pyw");
+        cmd("start .\\python\\pythonw.exe main.pyw");
         return 0;
     }
     else
     {
-        if (system("pythonw -c exit(0)") != 0)
+        if (cmd("pythonw.exe -c exit(0)") != 0)
         {
             if (!autostart)
             {
-                MessageBox(NULL, TEXT("Установите python и добавьте в path путь до папки с ним\nИли установите версию со встроенным python"), TEXT("Python"), MB_OK);
+                MessageBox(NULL, TEXT("вЂќСЃС‚Р°РЅРѕРІРёС‚Рµ python Рё РґРѕР±Р°РІСЊС‚Рµ РІ path РїСѓС‚СЊ РґРѕ РїР°РїРєРё СЃ РЅРёРј\nВ»Р»Рё СѓСЃС‚Р°РЅРѕРІРёС‚Рµ РІРµСЂСЃРёСЋ СЃРѕ РІСЃС‚СЂРѕРµРЅРЅС‹Рј python"), TEXT("Python"), MB_OK);
             }
             return 1;
         }
@@ -45,10 +65,10 @@ int main(int argc, char *argv[])
 
         if (autostart)
         {
-            system("start pythonw main.pyw -auto");
+            cmd("start pythonw.exe main.pyw -auto");
             return 0;
         }
-        system("start pythonw main.pyw");
+        cmd("start pythonw.exe main.pyw");
         return 0;
     }
 }
