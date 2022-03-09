@@ -11,8 +11,8 @@ NAME = 'timeCalculator'
 
 DATA_PATH = join(environ['localAppData'], NAME)
 
-VERSION = '1.0'
-VERSION_DATE = '02.03.2022'
+VERSION = '1.1'
+VERSION_DATE = '09.03.2022'
 
 HOME_URL = 'github.com/zedzhen/' + NAME
 UPDATE_URL = 'https://zedzhen.github.io/' + NAME
