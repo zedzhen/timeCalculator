@@ -2,12 +2,9 @@ import tkinter
 import os
 import ctypes
 from sys import platform, argv, exit
-from constant import *
 from tkinter import messagebox
 from queue import Queue
 from threading import Thread
-import setting
-import help_tk
 
 root = tkinter.Tk()
 root.withdraw()
@@ -30,7 +27,7 @@ except ImportError:
         if os.system('python -m pip install keyboard pystray==0.19.1 Pillow requests') == 0:
             messagebox.showinfo('Модули', '''Модули успешно установлены
 Программа будет перезапущена''')
-            os.system('start pythonw main.pyw')
+            os.system('start start.exe')
             exit(-1)
         messagebox.showinfo('Модули', '''Как минимум один из модулей не был установлен
 Программа будет закрыта
@@ -40,6 +37,10 @@ except ImportError:
 Установите модуль вручную
 см README.txt''')
     exit(1)
+
+import setting
+import help_tk
+from constant import *
 
 class Button(tkinter.Button):
     def __init__(self, root, frame, text, insert = None, key = None, width=1):
@@ -325,7 +326,7 @@ mainmenu = tkinter.Menu(menu, tearoff=0)
 menu.add_cascade(label='Основное', menu=mainmenu)
 
 mainmenu.add_command(label='Настройки', command=setting.create)
-mainmenu.add_command(label='Сбросить настройки', command=lambda:os.remove(setting.path_setting))
+mainmenu.add_command(label='Сбросить настройки', command=setting.reset)
 mainmenu.add_separator()
 mainmenu.add_command(label='Закрыть окно', command=close, accelerator='Alt+F4')
 mainmenu.add_command(label='Выход', command=full_exit, accelerator='Ctrl+Q')
