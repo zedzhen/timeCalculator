@@ -6,10 +6,11 @@
 ### C++
 (Для разработки используется Code::Blocks, cbp - файл проекта) \
 Для компиляции C++ используется mingw64 из msys2 64bit
-> g++.exe (Rev9, Built by MSYS2 project) 11.2.0
+> g++.exe (Rev9, Built by MSYS2 project) 11.2.0 
+
 Команды
-> windres.exe   -J rc -O coff -i "path\start\icon.rc" -o obj\start\icon.res
-> g++.exe -Wall -lstdc++fs -Os -std=c++17  -c "path\start\main.cpp" -o obj\start\main.o
+> windres.exe   -J rc -O coff -i "path\start\icon.rc" -o obj\start\icon.res \
+> g++.exe -Wall -lstdc++fs -Os -std=gnu++17  -c "path\start\main.cpp" -o obj\start\main.o \
 > g++.exe  -o ..\start.exe  obj\start\main.o obj\start\icon.res -s -static-libstdc++ -static-libgcc -static   -mwindows
 
 ### python
@@ -32,6 +33,6 @@
 ### Ошибики установки
 Возможно при попытки запуска от имени администратора возникнет ошибка ("Сервер возвратил ссылку"), это значит что нельзя запускать от администратора ПО без проверенных подписей.
 Решения:
-* Запуск через "Администратор: Командная строка"
+* Запуск через "Администратор: Командная строка" (Для удаления запустить файл unins000.exe)
 * Установить только для 1 пользователя
 * Установить сертификат
