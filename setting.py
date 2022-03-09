@@ -46,15 +46,12 @@ def close():
 
 def apply():
     setting = load()
-    restart = False
-    setting['time_format']=select['time_format'].current()
-    setting['update']=select['update'].get()
-    if setting['tray'] != select['tray'].get():
-        setting['tray'] = select['tray'].get()
-        restart = True
+    s = setting.copy()
+    setting['time_format'] = select['time_format'].current()
+    setting['update'] = select['update'].get()
+    setting['tray'] = select['tray'].get()
     if setting['from_tray'] != select['from_tray'].get():
         if select['from_tray'].get() == '':
-            restart = True
             setting['from_tray'] = select['from_tray'].get()
         else:
             try:
@@ -64,7 +61,6 @@ def apply():
                 messagebox.showerror('Настройки', 'Неверное сочетание клавиш')
                 return
             else:
-                restart = True
                 setting['from_tray'] = select['from_tray'].get()
 
     setting['autostart'] = select['autostart'].get()
@@ -75,10 +71,25 @@ def apply():
     setting['auto_in_tray'] = select['auto_in_tray'].get()
     
     save(setting)
-    if restart and messagebox.askokcancel('Перезапуск', 'Перезапустить программу?'):
-        os.system('start pythonw main.pyw')
+    if required_restart(s, setting) and messagebox.askokcancel('Перезапуск', 'Перезапустить программу?'):
+        os.system('start start.exe')
         full_exit(-1)
     w.destroy()
+
+def reset():
+    s = load()
+    os.remove(path_setting)
+    mywinreg.rem()
+    if required_restart(s, load()) and messagebox.askokcancel('Перезапуск', 'Перезапустить программу?'):
+        os.system('start start.exe')
+        full_exit(-1)
+
+def required_restart(before, after):
+    t = ['tray', 'from_tray']
+    for i in t:
+        if before[i] != after[i]:
+            return True
+    return False
 
 def create():
     global w, select
