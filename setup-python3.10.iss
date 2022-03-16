@@ -1,5 +1,5 @@
 ﻿#define MyAppName "timeCalculator"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "zedzhen"
 #define MyAppURL "https://github.com/zedzhen/timeCalculator"
 #define MyAppExeName "start.exe"
