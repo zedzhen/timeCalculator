@@ -1,4 +1,4 @@
-﻿#define MyAppName "timeCalculator"
+#define MyAppName "timeCalculator"
 #define MyAppVersion "1.1"
 #define MyAppPublisher "zedzhen"
 #define MyAppURL "https://github.com/zedzhen/timeCalculator"
